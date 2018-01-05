@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 WorkingDirectory=/projects/saveserver
 RemainAfterExit=yes
-ExecStart=/usr/bin/node /projects/saveserver/bin/www saveserver
+ExecStart=/usr/bin/node /projects/saveserver/.index.js saveserver
 
 [Install]
 WantedBy=multi-user.target
