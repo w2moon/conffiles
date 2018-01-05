@@ -1,0 +1,13 @@
+[Unit]
+Description=the main home page
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/projects/lovigame_ejs
+RemainAfterExit=yes
+ExecStart=/usr/bin/node /projects/lovigame_ejs/bin/www lovigame_ejs
+
+[Install]
+WantedBy=multi-user.target
+

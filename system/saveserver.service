@@ -1,0 +1,13 @@
+[Unit]
+Description=saveserver
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/projects/saveserver
+RemainAfterExit=yes
+ExecStart=/usr/bin/node /projects/saveserver/bin/www saveserver
+
+[Install]
+WantedBy=multi-user.target
+
