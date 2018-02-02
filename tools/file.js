@@ -3,6 +3,7 @@ var path = require("path");
 var bufferCls = require('buffer')
 var crypto = require('crypto');
 var archiver = require('archiver');
+var unzipLib = require("unzip");
 //loop all subfolder files, callback with fileFullPath
 function forEachFile(pathToFind,callback){
         if(!fs.existsSync(pathToFind)){
@@ -212,8 +213,10 @@ function needIgnore(file){
     return false;
 }
 
-function zip(folder){
-    var zipFile = path.resolve(path.basename(folder)+".zip");
+function zip(folder,toFolder){
+    toFolder = toFolder || "";
+    var zipFile = path.resolve(toFolder+path.basename(folder)+".zip");
+    console.log(zipFile);
     if(!folder.endsWith("/")){
         folder += "/";
     }
@@ -230,7 +233,17 @@ function zip(folder){
         archive.file(file, { name: zipName });
     });
     archive.finalize();
-};
+}
+
+function unzip(file,toFolder,cb){
+    fs.createReadStream(file).pipe(unzipLib.Extract({ path: toFolder })).on("finish",function(){
+        console.log("finish unzip"); 
+        if(cb){
+            cb();
+        }
+        
+    });
+}
 
 module.exports = {
     //遍历文件夹下所有文件，对每个文件调用callback
@@ -254,5 +267,6 @@ module.exports = {
     
     removeFolders:removeFolders,
 
-    zip:zip
+    zip:zip,
+    unzip:unzip,
 };
