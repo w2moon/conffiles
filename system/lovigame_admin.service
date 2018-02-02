@@ -1,0 +1,13 @@
+[Unit]
+Description=the admin page
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/projects/lovigame_admin
+RemainAfterExit=yes
+ExecStart=/usr/bin/node /projects/lovigame_admin/bin/www lovigame_admin
+
+[Install]
+WantedBy=multi-user.target
+
